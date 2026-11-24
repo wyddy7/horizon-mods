@@ -22,6 +22,22 @@ What it changes in the game: the player's velocity and fall while swinging (own 
 and player pose, web lines drawn in the world, and the view's turn while running on a wall. It reads no files outside
 its settings and sends nothing over the network.
 
+**Back catpack** (single player for now): a backpack that carries your own tamed cat, worn in a back slot; **G**
+opens it, **Shift+G** takes it off.
+
+**What it sends and keeps.** Only in your own world (single player, or a LAN world you host): on anyone else's
+server, and for a guest of a LAN world, the mod sends nothing and changes nothing.
+- Two payload channels of the cat backpack, `spider_man:catpack_state` (server to your own player only: what your
+  back slot holds, and the bag's storage window) and `spider_man:catpack_ask` (your game to its own server, heard
+  only from you: bag actions that name slots, checked by the server). Their identifiers are advertised during
+  connection setup, as every registered channel is; bag contents and actions travel only on the integrated
+  connection, checked at every send and receipt, and stop the moment it ends. Nothing leaves the computer.
+- While a web holds, the movement packet to your own world's server says you are on the ground, so no fall builds
+  up.
+- No chat lines or commands sent for you, no sockets, no HTTP, no telemetry.
+- Files: only its settings in `mod-storage/spider-man/`; the bag on your back is kept in your player data, a bag's
+  cat and items in the bag item.
+
 Fan-made, not affiliated with Marvel, Sony or Insomniac Games."""
 authors = ["wyddy7"]
 owners = ["wyddy7"]
@@ -31,6 +47,14 @@ source = "https://github.com/wyddy7/minecraft-spider-man-rust"
 icon = "icons/spider_man.png"
 categories = ["adventure", "transportation"]
 tags = ["spider-man", "web-swinging", "parkour", "wall-running", "movement"]
+
+[[versions]]
+version = "0.2.8"
+published = "2026-11-24"
+game = "26.3"
+file = "spider_man-0.2.8.hmod"
+sha256 = "78bdd6b57e3178740c398eda791ca69a236a29313c9e70151972406c10baeef7"
+changelog = "Back catpack: a backpack that carries your own tamed cat, worn in a back slot (G opens it, 27 slots; single player only, on both sides). A bag keeps only the cat's own fields and releases a plain cat for its owner; item models are bag-only. Long flights go up to 30 % faster after 3 s in the air (setting 0 to 200 %), a speedometer behind /swingmode speedo, a camera distance slider and a settings reset. Pinned to Horizon's Nightly of 2026-11-18 (0b14f8a) and horizon-mixins e59da90. Catpack messages only on the integrated connection, checked at each message. Release v0.2.8 of the repository."
 
 [[versions]]
 version = "0.2.5"
